@@ -1,12 +1,15 @@
 package compiler
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"io"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
+	"text/template"
 
 	"github.com/sqlc-dev/sqlc/internal/migrations"
 	"github.com/sqlc-dev/sqlc/internal/multierr"
@@ -66,12 +69,18 @@ func (c *Compiler) parseQueries(o opts.Parser) (*Result, error) {
 		return nil, err
 	}
 	for _, filename := range files {
-		blob, err := os.ReadFile(filename)
+		tmpl, err := template.New(path.Base(filename)).ParseFiles(filename)
 		if err != nil {
 			merr.Add(filename, "", 0, err)
 			continue
 		}
-		src := string(blob)
+		blob := bytes.NewBuffer([]byte{})
+		err = tmpl.Execute(blob, c.catalog)
+		if err != nil {
+			merr.Add(filename, "", 0, err)
+			continue
+		}
+		src := blob.String()
 		stmts, err := c.parser.Parse(strings.NewReader(src))
 		if err != nil {
 			merr.Add(filename, src, 0, err)
