@@ -1,5 +1,9 @@
 {{define "dbCodeTemplatePgx"}}
 
+import (
+    "github.com/jackc/pgx/v5/pgxpool"
+)
+
 type DBTX interface {
 	Exec(context.Context, string, ...interface{}) (pgconn.CommandTag, error)
 	Query(context.Context, string, ...interface{}) (pgx.Rows, error)
@@ -32,6 +36,10 @@ func (q *Queries) WithTx(tx pgx.Tx) *Queries {
 	return &Queries{
 		db: tx,
 	}
+}
+
+func (q *Queries) GetConnection(ctx context.Context) (pgx.Tx, error) {
+	return q.db.(*pgxpool.Pool).Begin(ctx)
 }
 {{end}}
 {{end}}
