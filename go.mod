@@ -1,8 +1,8 @@
-module github.com/peernova/sqlc
+module github.com/sqlc-dev/sqlc
 
-replace github.com/sqlc-dev/sqlc => github.com/peernova/sqlc v0.0.0-20240220221907-b16c8e49f591
+replace github.com/sqlc-dev/sqlc => github.com/peernova/sqlc v0.0.0-20240423202648-7bc9366baa91
 
-go 1.21
+go 1.22
 
 require (
 	github.com/antlr4-go/antlr/v4 v4.13.0
@@ -52,7 +52,7 @@ require (
 	github.com/pingcap/failpoint v0.0.0-20220801062533-2eaa32854a6c // indirect
 	github.com/pingcap/log v1.1.0 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
-	github.com/rogpeppe/go-internal v1.10.0 // indirect
+	github.com/rogpeppe/go-internal v1.12.0 // indirect
 	github.com/stoewer/go-strcase v1.2.0 // indirect
 	github.com/xeipuuv/gojsonpointer v0.0.0-20180127040702-4e3ac2762d5f // indirect
 	github.com/xeipuuv/gojsonreference v0.0.0-20180127040603-bd5ef7bd5415 // indirect
