@@ -1,4 +1,4 @@
-module github.com/sqlc-dev/sqlc
+module github.com/peernova/sqlc
 
 replace github.com/sqlc-dev/sqlc => github.com/peernova/sqlc v0.0.0-20240220221907-b16c8e49f591
 
